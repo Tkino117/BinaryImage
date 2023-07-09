@@ -39,9 +39,7 @@ namespace BinaryImage
             /*
             process_Y = gauss(process_Y, 3, 0.5f);
             process_Y = binary_block(process_Y, 20, 5.6f, 11f);
-
             process_Y = denoise_black_binary(process_Y, 100, 2);
-            
             //process_Y = denoise_white_binary(process_Y, 100, 1);
             */
 
@@ -203,7 +201,6 @@ namespace BinaryImage
                 //if (correct_rate < 1 - error_range || 1 + error_range < correct_rate)
                     //MessageBox.Show("サイズ" + size + "のガウス分布行列の合計値が" + tmp_sum + "です\r（警告）");
 
-
                 correct_rate = Math.Max(Math.Min(correct_rate, correct_rate_upper), correct_rate_lower);  //補正倍率を上限下限内に
 
                 //倍率で補正
@@ -246,7 +243,6 @@ namespace BinaryImage
             float tmp_gauss = 0f;  //フィルタ内の明るさの合計（imgY）
             int posX;      //sum時に参照する座標X
             int posY;      //sum時に参照する座標Y
-            
             
             for (int y1 = 0; y1 < height; y1++)
             {
@@ -831,69 +827,11 @@ namespace BinaryImage
 
             //配列を返す
             return imgout;
-
-        }
-
-        //（使ってない）
-        //テスト用
-        private void outIroIro()
-        {
-            //処理用の輝度のみ二次元配列
-            float[,] process_Y = copy(imginput_Y);
-
-            //ためしてみるガウスぼかし
-            int[] gaussSize = new int[] { 0, 1, 3 };
-            float[] gaussSigma = new float[] { 0.2f, 0.5f, 1.0f };
-
-            //ためしてみる二値変換
-            int[] blockSize = new int[] { 10, 15, 20 };
-            float[] blockSigma = new float[] { 4.5f, 5.6f, 7.0f };
-            float[] blockthreshold = new float[] { 8f, 11f, 14f };
-
-            foreach(int gsize in gaussSize)
-            {
-                foreach(float gsigma in gaussSigma)
-                {
-                    foreach (int bsize in blockSize)
-                    {
-                        foreach (float bsigma in blockSigma)
-                        {
-                            foreach (float bthreshold in blockthreshold)
-                            {
-                                process_Y = copy(imginput_Y);
-                                process_Y = gauss(process_Y, gsize, gsigma);
-                                process_Y = binary_block(process_Y, bsize, bsigma, bthreshold);
-                                outBmp(Y_To_Rgb(process_Y), "gSz_" + gsize + " gSg_" + gsigma + " bSz_" + bsize + " bSg_" + bsigma + " bTh_" + bthreshold + ".bmp");
-                            }    
-                        }
-                    }    
-                }
-            }
-            MessageBox.Show("かんりょー");
         }
 
         //（テスト用）
         private void button1_Click(object sender, EventArgs e)
         {
-
-
-            List<int[]> list = new List<int[]>();
-            list.Add(new int[] { 1, 2 });
-            list.Add(new int[] { 3, 4 });
-            list.Add(new int[] { 5, 6 });
-
-            Console.WriteLine(list.Contains(new int[] { 1, 2 }));
-            Console.WriteLine(list.Contains(new int[] { 2, 3 }));
-            Console.WriteLine(list[0][0] + "" + list[0][1]);
-            Console.WriteLine(list[1][0] + "" + list[1][1]);
-
-            List<int> list2 = new List<int>();
-            list2.Add(1);
-            list2.Add(2);
-            list2.Add(3);
-
-
-            Console.WriteLine(list2.Count);
         }
     }
 }
